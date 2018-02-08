@@ -1,116 +1,67 @@
-# homework-3-case-study
+# CIS-566-Project-0
+https://github.com/CIS-566-2018/CIS-566-Project-0
 
-# Assignment Description
+- Name : Hanming Zhang
+- Pennkey : hanming
 
-For this assignment, you will re-create various animations demonstrating a combination of toolbox functions and the rendering techniques you've already learned. The motivation for this is to help you become more familiar with toolbox functions as well as give you experience in producing a desired aesthetic.
+## My Code
 
-Below are multiple examples of periodic animations with assigned point values. You are required to complete EITHER:
-* One intermediate animation and one hard animation
-* Three intermediate animations
-* One Duck-Level-hard animation (at the very bottom)
+- control GUI
 
-You have three options for implementing these:
-* Rasterizer, like homework 1
-* Raymarcher / implicit surfaces, like homework 2
-* Shadertoy (probably the easiest)
+  ![](/img/1.jpg)
 
-You can also implement different scenes with different methods.
+  geometry : Cube / icosphere / square
+  
+  tesselation : icosphere tesselation level
 
-If you'd like to implement any animations that are not listed below, you can make a _private_ post on Piazza and we will decide if they are appropriate for the assignment, and their difficulty classification. Check [/r/loadingicon](https://www.reddit.com/r/loadingicon) on Reddit for inspiration.
+  color : default diffuse color
 
-*Extra Credit*: you can earn extra credit by creating interesting twists e.g. materials and animations that are not in the original reference. Since we are grading reference matching, additional features must be toggleable, either by a GUI option in your webgl site or by a #define statement in your Shadertoy code. This must be described in your writeup. Additionally, some of the references have some attributes that are exceptionally difficult, and do not need to be implemented for full credit; we will note what these are and they can count for extra credit.
-
-# Submission
-
-You must submit a writeup for this assignment by 11:59 PM on Thursday, Feb. 8th to canvas *as a .pdf or .txt*. If your projects are hosted on Github you should copy your writeup to a readme.
-
-Writeups must include, for each scene:
-* A link to the online implementation
-* A link to the reference animation
-* *Detailed* description of techniques used to emulate the reference, for both motion and rendering
-* If you implement extra credit, explain what it is and how to toggle it
+  shaderProg : default Lambert or custom shader
 
 
-# Evaluation
+- custom shader & swinging cube
 
-Each intermediate scene is worth 1/3 credit. Difficult scenes are 2/3 credit. Duck-level scenes are worth 100% credit.
-Extra credit is at grader discretion and cannot exceed 20 points.
+  ![](/img/0.jpg)
 
-*If we cannot view your work online it will receive no credit.*
 
-All shaders will be graded by this scheme:
-* 65% Reference matching: does this show understanding of the motion, colors, and rendering techniques required to create the animation? This does not have to be pixel-perfect for full credit.
-* 20% Writeup completeness
-* 15% Performance considerations: motion should be fluid, ideally no less than 30 FPS at Shadertoy-resolution on a gaming laptop. If your shader (without EC) is seriously under-performant there will be a point penalty.
+## Objective
+- Check that the tools and build configuration we will be using for the class works.
+- Start learning Typescript and WebGL2
 
-# References: Intermediate Difficulty
+## Running the Code
 
-## Sweet Swing
-<img src="Images/sweetSwing.gif" width="400px" />
+1. [Install Node.js](https://nodejs.org/en/download/). Node.js is a JavaScript runtime. It basically allows you to run JavaScript when not in a browser. For our purposes, this is not necessary. The important part is that with it comes `npm`, the Node Package Manager. This allows us to easily declare and install external dependencies such as [dat.GUI](https://workshop.chromeexperiments.com/examples/gui/#1--Basic-Usage), and [glMatrix](http://glmatrix.net/).
 
-#### Extra credit:
-- Convincing materials, rendering, textures
+2. Using a command terminal, run `npm install` in the root directory of your project. This will download all of those dependencies.
 
-## Cut Cube
-<img src="https://i.imgur.com/sZa2PPI.gif" width="400px" />
+3. Do either of the following (but we highly recommend the first one for reasons we will explain later).
 
-## Speedy Spin OR Speedy Cube
-<img src="https://i.imgur.com/AI00mHu.gif" width="400px" />
-<img src="https://i.imgur.com/Ltm5xjD.gif" width="400px" />
+    a. Run `npm start` and then go to `localhost:5660` in your web browser
 
-#### Notes:
-- Motion blur is required, *not* extra credit
+    b. Run `npm run build` and then go open `index.html` in your web browser
 
-## Paw Metaballs
-<img src="https://assets0.ello.co/uploads/asset/attachment/5159868/ello-optimized-99a5cfbf.gif" width="400px" />
+## Module Bundling
+One of the most important dependencies of our projects is [Webpack](https://webpack.js.org/concepts/). Webpack is a module bundler which allows us to write code in separate files and use `import`s and `export`s to load classes and functions for other files. It also allows us to preprocess code before compiling to a single file. We will be using [Typescript](https://www.typescriptlang.org/docs/home.html) for this course which is Javascript augmented with type annotations. Webpack will convert Typescript files to Javascript files on compilation and in doing so will also check for proper type-safety and usage. Read more about Javascript modules in the resources section below.
 
-#### Notes:
-- Smooth blending during separation and joining of blobs is required
+## Developing Your Code
+All of the JavaScript code is living inside the `src` directory. The main file that gets executed when you load the page as you may have guessed is `main.ts`. Here, you can make any changes you want, import functions from other files, etc. The reason that we highly suggest you build your project with `npm start` is that doing so will start a process that watches for any changes you make to your code. If it detects anything, it'll automagically rebuild your project and then refresh your browser window for you. Wow. That's cool. If you do it the other way, you'll need to run `npm build` and then refresh your page every time you want to test something.
 
-## Tri-Colored Cube
-<img src="https://i.redd.it/e8dcpl3rw32z.gif" width="400px" />
+We would suggest editing your project with Visual Studio Code https://code.visualstudio.com/. Microsoft develops it and Microsoft also develops Typescript so all of the features work nicely together. Sublime Text and installing the Typescript plugins should probably work as well.
 
-## Spindle of Death
-<img src="https://media.giphy.com/media/26DN7fdyFRqfBjqMw/giphy.gif" width="400px" />
+## Assignment Details
+1. Take some time to go through the existing codebase so you can get an understanding of syntax and how the code is architected. Much of the code is designed to mirror the class structures used in CIS 460's OpenGL assignments, so it should hopefully be somewhat familiar.
+2. Take a look at the resources linked in the section below. Definitely read about Javascript modules and Typescript. The other links provide documentation for classes used in the code.
+3. Add a `Cube` class that inherits from `Drawable` and at the very least implement a constructor and its `create` function. Then, add a `Cube` instance to the scene to be rendered.
+4. Read the documentation for dat.GUI below. Update the existing GUI in `main.ts` with a parameter to alter the color passed to `u_Color` in the Lambert shader.
+5. Write a custom shader of your choosing and add a GUI element that allows the user to switch shaders. Your custom shader must use a trig function to modify vertex position or fragment color non-uniformly. If your custom shader is particularly interesting, you'll earn some bonus points.
+6. Feel free to update any of the files when writing your code. The implementation of the `OpenGLRenderer` is currently very simple.
 
-# References: Hard Difficulty
-
-## Electron Orbitals
-<img src="http://i.imgur.com/MNw0Vrm.gif" width="400px" />
-
-## Rainbow Step Cube
-<img src="https://78.media.tumblr.com/a5fc5d607e40fe345f5ba6e10fbb21a3/tumblr_or5m8jLTtd1r65ii5o1_500.gif" width="400px" />
-
-#### Notes:
-- Height variation is required in the extrustions
-
-## Bubbling Beaker
-<img src="https://d13yacurqjgara.cloudfront.net/users/318273/screenshots/2029648/verve_lab_dribbble.gif" width="400px" />
-
-## Chocolate-Loving Shark
-<img src="https://i.imgur.com/ClgFpAW.gif" width="400px" />
-
-#### Notes:
-- Soft shadows required
-
-#### Extra Credit:
-- Depth of field (screenspace, IQ has examples)
-
-## GameCube Loading Screen
-<img src="Images/gameCubeLogo.gif" width="400px" />
-
-#### Notes:
-- No text required
-
-# Reference: Duck Level Difficulty
-<img src="http://i.imgur.com/0kvtMLE.gif" width="400px" />
-
-#### Specifications:
-_good luck, duck!_
-- Modelling the duck
-- Head Bob
-- Tail Wag
-- Match the movement of the feet
-- Shading of the duck
-- Fake shadows as circles
-
+## Resources
+- Javascript modules https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
+- Typescript https://www.typescriptlang.org/docs/home.html
+- dat.gui https://workshop.chromeexperiments.com/examples/gui/
+- glMatrix http://glmatrix.net/docs/
+- WebGL
+  - Interfaces https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API
+  - Types https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Types
+  - Constants https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants
