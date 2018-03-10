@@ -3498,9 +3498,10 @@ function main() {
     // setup timer;
     var timer = 0.0;
     var gain_g = 0.9;
+    camera.update();
     // This function will be called every frame
     function tick() {
-        camera.update();
+        // camera.update();
         stats.begin();
         gl.viewport(0, 0, window.innerWidth, window.innerHeight);
         timer += 1.0;
